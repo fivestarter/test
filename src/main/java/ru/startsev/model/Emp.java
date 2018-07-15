@@ -1,6 +1,7 @@
 package ru.startsev.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Emp {
@@ -12,6 +13,9 @@ public class Emp {
     @ManyToOne
     @JoinColumn(name = "dept_id")
     private Dept dept;
+
+    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Child> children;
 
     public Long getId() {
         return id;
@@ -35,5 +39,13 @@ public class Emp {
 
     public void setDept(Dept dept) {
         this.dept = dept;
+    }
+
+    public List<Child> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Child> children) {
+        this.children = children;
     }
 }
